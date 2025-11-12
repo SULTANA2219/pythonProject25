@@ -49,5 +49,21 @@ for face_encoding, face_location in zip(encodings, locations):
 top_left = (face_location[3], face_location[0])
 bottom_right = (face_location[1], face_location[2])
 
-color = [0, 255, 0] if 
+color = [0, 255, 0] if match else [0, 0, 255]
+cv2.rectangle(image, top_left, bottom_right, color, FRAME_THICKNESS)
+
+top_left = (face_location[3], face_location[2])
+bottom_right = (face_location[1], face_location[2] + 22)
+cv2.rectangle(image, top_left, bottom_right, color, cv2.FILLED)
+
+cv2.putText(image, match if match else 'Unknown', (face_location[3] + 10, face_location[2] + 15),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), FONT_THICKNESS)
+
+cv2.imshow('FaceRecognition', image)
+if cv2.waitKey(1) & 0xFF == ord('q'):
+  break
+
+video.release()
+cv2.destroyAllWindows()
+
     
